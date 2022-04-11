@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Add users to a distribution list.
+Add contacts with external email addresses to a distribution list.
 
 .DESCRIPTION
-This script creates mail contacts for users and adds the mail contacts to a distribution list. 
+This script creates mail contacts for external email addresses and adds the mail contacts to a distribution list. 
 
 Existing mail contacts that match the user's email address are added to the distribution list.
 
@@ -54,6 +54,9 @@ This command does not take any input from the pipeline.
 
 .OUTPUTS
 None. This command does not return any objects.
+
+.LINK
+https://github.com/Greg-T8/powershell-scripts/blob/main/Add-ContactToDistributionGroup/Add-ContactToDistributionGroup.ps1
 
 .NOTES
 Version 1: 3/21/22 by Greg Tate

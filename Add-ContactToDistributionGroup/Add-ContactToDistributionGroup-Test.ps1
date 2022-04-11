@@ -1,7 +1,7 @@
 $testCase = 'bulk'
 $Verbose = $true
 $WhatIf = $false
-$DistributionList = 'contractors@tate365sandbox.dev'
+$DistributionList = 'testdl@tate365sandbox.dev'
 
 switch ($testCase) {
     'bulk' {
