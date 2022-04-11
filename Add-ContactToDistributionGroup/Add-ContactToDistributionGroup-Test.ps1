@@ -6,6 +6,7 @@ $DistributionList = 'testdl@tate365sandbox.dev'
 switch ($testCase) {
     'bulk' {
         $params = @{
+            # CSV file needs the following columns: Name, Email
             CsvPath = "$($PWD.Path)\Test.csv"
             DistributionListAddress = $DistributionList
             Verbose = $Verbose
