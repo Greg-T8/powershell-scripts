@@ -50,10 +50,10 @@ Run a check to determine which contacts will be created.
 .\Add-ContactToDistributionGroup.ps1 -DistributionListAddress 'dl@domain.com' -CsvPath "$($PWD.Path)\users.csv" -WhatIf
 
 .INPUTS
-This command does not take any input from the pipeline.
+This command does not take input from the pipeline.
 
 .OUTPUTS
-None. This command does not return any objects.
+This command does not return any objects.
 
 .LINK
 https://github.com/Greg-T8/powershell-scripts/blob/main/Add-ContactToDistributionGroup/Add-ContactToDistributionGroup.ps1
@@ -224,7 +224,7 @@ function CheckCSVFile {
             throw "There isn't any user date in the CSV file."
         }
         foreach ($user in $users) {
-            $errorMessage = "Improperly-formatted CSV file. Make the following columns exist: Name, Email"
+            $errorMessage = "Improperly-formatted CSV file. Make sure the following columns exist: Name, Email"
             if ($null -eq $user.Name -or $null -eq $user.Email) { throw $errorMessage}
         }
     } catch {
