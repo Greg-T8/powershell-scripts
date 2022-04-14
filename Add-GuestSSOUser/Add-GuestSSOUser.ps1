@@ -73,14 +73,18 @@ function LoadConfigFile {
         $configFileName = $PSCmdlet.MyInvocation.MyCommand.Name -replace ('.ps1', '.config.ps1')
         $configFile = Get-ChildItem "$PSScriptRoot\$configFileName" -ErrorAction stop
     } catch {
-        Write-Warning "Unable to find config file. Exiting script."
+        $errorMessage = $_.Exception.Message
+        Write-Warning "Unable to find config file. Here's the error message: `n`t $errorMessage"
+        Write-Warning "Exiting script."
         exit
     }
     try {
         # Creates $config variable
         Invoke-Expression -Command $configFile.FullName -ErrorAction stop
     } catch {
-        Write-Warning "Unable to load config file. Exiting script."
+        $errorMessage = $_.Exception.Message
+        Write-Warning "Unable to load config file. Here's the error mesage: `n`t $errorMessage"
+        Write-Warning "Exiting script."
         exit
     }
 }
