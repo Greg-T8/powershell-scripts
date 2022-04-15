@@ -60,7 +60,7 @@ $main = {
     # Load configuration
     LoadConfigFile
 
-    # Verify connectivity to Azure AD
+    # Verify connectivity to Microsoft Graph
     $sessionInfo = GetSessionInfo -TenantId $config.tenantId
 
     # Check permissions
@@ -79,8 +79,8 @@ function LoadConfigFile {
         exit
     }
     try {
-        # Creates $config variable
-        Invoke-Expression -Command $configFile.FullName -ErrorAction stop
+        # Loads the $config variable from the configuration file
+        & $configFile.FullName -ErrorAction stop
     } catch {
         $errorMessage = $_.Exception.Message
         Write-Warning "Unable to load config file. Here's the error mesage: `n`t $errorMessage"
@@ -99,11 +99,20 @@ function GetSessionInfo {
         Write-Host "Connected to Microsoft Graph using $($sessionInfo.Account)"
     } else {
         Write-Warning "Not connected to Microsoft Graph. Running Connect-MgGraph."
-        $sessionInfo = Connect-MgGraph -TenantId $TenantId -ErrorAction stop
+        try {
+            $sessionInfo = Connect-MgGraph -TenantId $TenantId -ErrorAction stop
+        } catch {
+            $errorMessage = $_.Exception.Message
+            Write-Warning "There was an issue connecting to Microsoft Graph. Here's the error message `n`t $errorMessage"
+            Write-Warning "Exiting script."
+            exit
+        }
         Write-Host "Connected to Microsoft Graph using $($sessionInfo.Account)"
     }
     return $sessionInfo
 }
+
+function VerifyGraphPermissions {}
 
 function CheckRequiredRoles {
     param (
@@ -111,16 +120,11 @@ function CheckRequiredRoles {
         [string[]]$RequiredPermissions,
 
         [Parameter(Mandatory=$true)]
-        [Microsoft.Open.Azure.AD.CommonLibrary.PSAzureContext]$SessionInfo
+        [Microsoft.Graph.PowerShell.Authentication.AuthContext]$SessionInfo
     )
 
-    # Get current user
-    try {
-        $currentUser = Get-AzureADUser -Filter "userPrincipalName eq '$($SessionInfo.Account.Id)'"
-    } catch {
-        Write-Warning "Issue getting AzureAD user. Check connectivity to AzureAD. Exiting script."
-        exit
-    }
+    $currentUser = $SessionInfo.Account
+
     # Get all Azure AD roles
     $roleDefinitions = Get-AzureADMSRoleDefinition
 

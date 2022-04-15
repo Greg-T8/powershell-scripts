@@ -1,12 +1,11 @@
 $tenants = @{
     Sandbox = 'c20737c4-bc9c-49aa-a451-90862566d79c'
 }
-
-ActiveTenant = $tenants.Sandbox
+$activeTenant = $tenants.Sandbox
 
 $global:config = @{
     
-    tenantID = $ActiveTenant
+    tenantID = $activeTenant
 
     requiredPermissions = @(
         'microsoft.directory/users/basic/update'
