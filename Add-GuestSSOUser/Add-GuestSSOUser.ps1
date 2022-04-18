@@ -29,7 +29,8 @@ in order to execute the script.
 
 #>
 
-#requires -modules Microsoft.Graph.Authentication, Microsoft.Graph.Identity.DirectoryManagement
+#requires -modules @{ModuleName="Microsoft.Graph.Authentication"; ModuleVersion="1.9.5"}
+#requires -modules @{ModuleName="Microsoft.Graph.Identity.DirectoryManagement"; ModuleVersion="1.9.5"}
 
 [CmdletBinding(SupportsShouldProcess)]
 param(
@@ -112,7 +113,11 @@ function GetSessionInfo {
     return $sessionInfo
 }
 
-function VerifyGraphPermissions {}
+function VerifyGraphPermissions {
+
+
+
+}
 
 function CheckRequiredRoles {
     param (
