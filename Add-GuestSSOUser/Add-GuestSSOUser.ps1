@@ -101,7 +101,8 @@ function GetSessionInfo {
     } else {
         Write-Warning "Not connected to Microsoft Graph. Running Connect-MgGraph."
         try {
-            $sessionInfo = Connect-MgGraph -TenantId $TenantId -ErrorAction stop
+            Connect-MgGraph -TenantId $TenantId -ErrorAction stop | Out-Null
+            $sessionInfo = Get-MGContext
         } catch {
             $errorMessage = $_.Exception.Message
             Write-Warning "There was an issue connecting to Microsoft Graph. Here's the error message `n`t $errorMessage"
@@ -113,11 +114,6 @@ function GetSessionInfo {
     return $sessionInfo
 }
 
-function VerifyGraphPermissions {
-
-
-
-}
 
 function CheckRequiredRoles {
     param (
