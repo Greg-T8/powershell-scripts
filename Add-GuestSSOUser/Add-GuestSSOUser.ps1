@@ -127,7 +127,7 @@ function CheckRequiredRoles {
     $currentUser = $SessionInfo.Account
 
     # Get all Azure AD roles
-    $roleDefinitions = Get-AzureADMSRoleDefinition
+    $roleDefinitions = Get-MgDirectoryRoleTemplate
 
     # Get required roles
     $requiredRoles = $roleDefinitions | 
