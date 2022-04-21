@@ -124,6 +124,7 @@ function CheckRequiredRoles {
         [Microsoft.Graph.PowerShell.Authentication.AuthContext]$SessionInfo
     )
 
+    #4-21-22 - Researching how to use OData to specify additional properties from Get-MgDirectoryRoleById command
     $currentUser = $SessionInfo.Account
 
     # Get all Azure AD roles
